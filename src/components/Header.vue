@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">后台管理系统</div>
+        <div class="logo">{{web.title || '后台管理系统'}}</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -38,6 +38,9 @@
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
+                        <router-link to="/info">
+                            <el-dropdown-item>个人信息</el-dropdown-item>
+                        </router-link>
                         <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
                             <el-dropdown-item>项目仓库</el-dropdown-item>
                         </a>
@@ -49,10 +52,14 @@
     </div>
 </template>
 <script>
+
 import bus from '@/utils/bus';
+import web from '@/config/web';
+
 export default {
     data() {
         return {
+            web,
             collapse: false,
             fullscreen: false,
             name: 'linxin',

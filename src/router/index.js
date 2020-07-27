@@ -20,6 +20,11 @@ export default new Router({
                     meta: { title: '系统首页' }
                 },
                 {
+                    path: '/info',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/Info.vue'),
+                    meta: { title: '个人信息' }
+                },
+                {
                     path: '/user',
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/User.vue'),
                     meta: { title: '用户列表' }
