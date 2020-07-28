@@ -33,7 +33,11 @@
             />
         </div>
 
-        <xdd-form :title="type === 1 ? '添加' : '编辑'" :form.sync="form" :visible="visible" @save="save" @close="close"/>
+        <xdd-form :title="type === 1 ? '添加' : '编辑'" :form.sync="form" :visible="visible" :fields="fields" @save="save" @close="close">
+            <el-form-item slot="address" label="地址">
+                <el-input v-model="form.address"></el-input>
+            </el-form-item>
+        </xdd-form>
     </div>
 </template>
 
@@ -107,11 +111,108 @@
                         onAction: this.handleDelete
                     }]
                 }],
+                fields: [{
+                    key: 'name',
+                    type: 'text',
+                    label: '用户名'
+                }, {
+                    key: 'address',
+                    slot: true
+                }, {
+                    key: 'status',
+                    type: 'select',
+                    label: '状态',
+                    optionKey: 'key',
+                    optionText: 'text',
+                    options: [{
+                        key: 0,
+                        text: '全部'
+                    }, {
+                        key: 1,
+                        text: '正常'
+                    }, {
+                        key: 2,
+                        text: '禁用'
+                    }]
+                }, {
+                    key: 'date',
+                    type: 'date',
+                    dateType: 'date',
+                    dateFormat: 'yyyy-MM-dd',
+                    label: '日期',
+                }, {
+                    key: 'time',
+                    type: 'time',
+                    dateType: 'date',
+                    dateFormat: 'HH:mm:ss',
+                    label: '时间',
+                }, {
+                    key: 'city',
+                    type: 'cascader',
+                    label: '城市',
+                    options: [{
+                        value: 'guangdong',
+                        label: '广东省',
+                        children: [{
+                            value: 'guangzhou',
+                            label: '广州市',
+                            children: [{
+                                value: 'tianhe',
+                                label: '天河区'
+                            }, {
+                                value: 'haizhu',
+                                label: '海珠区'
+                            }]
+                        }, {
+                            value: 'dongguan',
+                            label: '东莞市',
+                            children: [{
+                                value: 'changan',
+                                label: '长安镇'
+                            }, {
+                                value: 'humen',
+                                label: '虎门镇'
+                            }]
+                        }]
+                    }, {
+                        value: 'hunan',
+                        label: '湖南省',
+                        children: [{
+                            value: 'changsha',
+                            label: '长沙市',
+                            children: [{
+                                value: 'yuelu',
+                                label: '岳麓区'
+                            }]
+                        }]
+                    }]
+                }, {
+                    key: 'switch',
+                    type: 'switch',
+                    label: '开关',
+                }, {
+                    key: 'education',
+                    type: 'radio',
+                    label: '学历',
+                    options: [{
+                        key: 0,
+                        text: '初中'
+                    }, {
+                        key: 1,
+                        text: '高中'
+                    }, {
+                        key: 2,
+                        text: '本科'
+                    }, {
+                        key: 3,
+                        text: '专科'
+                    }]
+                }],
                 multipleSelection: [],
                 delList: [],
                 visible: false,
                 pageTotal: 0,
-                form: {},
+                form: {fruit: []},
                 idx: -1,
                 id: -1,
                 type: null

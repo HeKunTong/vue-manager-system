@@ -1,5 +1,5 @@
 const web = {
-    title: '箱多多科技有限公司'
+    title: '后台管理系统'
 };
 
 export default web;
