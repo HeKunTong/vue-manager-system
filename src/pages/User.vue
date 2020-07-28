@@ -33,7 +33,7 @@
             />
         </div>
 
-        <xdd-form :title="type === 1 ? '添加' : '编辑'" :form.sync="form" :visible="visible" :fields="fields" @save="save" @close="close">
+        <xdd-form :title="type === 1 ? '添加' : '编辑'" :form="form" :visible="visible" :fields="fields" @save="save" @close="close">
             <el-form-item slot="address" label="地址">
                 <el-input v-model="form.address"></el-input>
             </el-form-item>
@@ -119,6 +119,14 @@
                     key: 'address',
                     slot: true
                 }, {
+                    key: 'phone',
+                    type: 'number',
+                    label: '手机号码'
+                }, {
+                    key: 'password',
+                    type: 'password',
+                    label: '密码'
+                }, {
                     key: 'status',
                     type: 'select',
                     label: '状态',
@@ -191,6 +199,23 @@
                     type: 'switch',
                     label: '开关',
                 }, {
+                    key: 'fruit',
+                    type: 'checkbox',
+                    label: '水果',
+                    slot: true,
+                    optionKey: 'key',
+                    optionText: 'text',
+                    options: [{
+                        key: 0,
+                        text: '香蕉'
+                    }, {
+                        key: 1,
+                        text: '苹果'
+                    }, {
+                        key: 2,
+                        text: '葡萄'
+                    }]
+                }, {
                     key: 'education',
                     type: 'radio',
                     label: '学历',
@@ -207,12 +232,23 @@
                         key: 3,
                         text: '专科'
                     }]
+                }, {
+                    key: 'content',
+                    type: 'textarea',
+                    label: '内容',
+                }, {
+                    key: 'thumb',
+                    type: 'upload',
+                    label: '缩略图',
+                    action: 'https://jsonplaceholder.typicode.com/posts/',
                 }],
                 multipleSelection: [],
                 delList: [],
                 visible: false,
                 pageTotal: 0,
-                form: {fruit: []},
+                form: {
+                    fruit: []
+                },
                 idx: -1,
                 id: -1,
                 type: null

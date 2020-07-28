@@ -48,9 +48,9 @@
                     </el-form-item>
                     <el-form-item label="多选框">
                         <el-checkbox-group v-model="form.type">
-                            <el-checkbox label="步步高" name="type"></el-checkbox>
-                            <el-checkbox label="小天才" name="type"></el-checkbox>
-                            <el-checkbox label="imoo" name="type"></el-checkbox>
+                            <el-checkbox label="步步高" name="type">步步高</el-checkbox>
+                            <el-checkbox label="小天才" name="type">小天才</el-checkbox>
+                            <el-checkbox label="imoo" name="type">imoo</el-checkbox>
                         </el-checkbox-group>
                     </el-form-item>
                     <el-form-item label="单选框">
@@ -135,7 +135,7 @@ export default {
                 date1: '',
                 date2: '',
                 delivery: true,
-                type: ['步步高'],
+                type: [],
                 resource: '小天才',
                 desc: '',
                 options: []
