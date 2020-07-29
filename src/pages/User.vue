@@ -23,13 +23,21 @@
                 <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 <el-button type="primary" icon="el-icon-lx-add" @click="handleAdd">添加</el-button>
+                <el-button
+                        type="primary"
+                        icon="el-icon-lx-down"
+                        :loading="loading"
+                        @click="handleDownload"
+                >导出</el-button>
             </div>
             <xdd-table
-                :data="tableData"
-                :columns="columns"
-                :current="query.pageIndex"
-                :size="query.pageSize"
-                :total="pageTotal"
+                    ref="xddTable"
+                    :data="tableData"
+                    :columns="columns"
+                    :current="query.pageIndex"
+                    :size="query.pageSize"
+                    :total="pageTotal"
+                    @change="handleSelectionChange"
             />
         </div>
 
@@ -38,7 +46,8 @@
                 :form="form"
                 :visible="visible"
                 :fields="fields"
-                @save="save" @close="close"
+                @save="save"
+                @close="close"
         >
             <el-form-item slot="address" label="地址">
                 <el-input v-model="form.address"></el-input>
@@ -52,6 +61,8 @@
     import XddTable from '@/components/Table';
     import XddForm from '@/components/Form';
     import { fetchData } from '@/api';
+    import * as excel from '@/utils/exportToExcel';
+    import forEach from 'lodash/forEach';
 
     export default {
         components: {
@@ -66,6 +77,7 @@
                     pageIndex: 1,
                     pageSize: 10
                 },
+                loading: false,
                 tableData: [],
                 columns: [{
                     key: 'id',
@@ -333,7 +345,39 @@
             handlePageChange: function (val) {
                 this.$set(this.query, 'pageIndex', val);
                 this.getData();
-            }
+            },
+            handleDownload: function() {
+                if (this.multipleSelection.length !== 0) {
+                    this.loading = true
+                    const tHeader = ['Id', '用户名', '账户余额', '地址', '状态', '注册时间']
+                    const filterVal = ['id', 'name', 'money', 'address', 'state', 'date']
+                    const list = this.multipleSelection;
+                    let data = [];
+                    forEach (list, function(item, index) {
+                        data[index] = [];
+                        for (let i in filterVal) {
+                            let key = filterVal[i];
+                            let str = item[key];
+                            if (key === 'money') {
+                                str = '￥' + str;
+                            }
+                            data[index].push(str);
+                        }
+                    });
+                    excel.export_json_to_excel({
+                        header: tHeader,
+                        data,
+                        filename: ''
+                    });
+                    this.$refs.xddTable.clearSelection();
+                    this.loading = false;
+                } else {
+                    this.$message({
+                        message: 'Please select at least one item',
+                        type: 'warning'
+                    })
+                }
+            },
         }
     };
 </script>

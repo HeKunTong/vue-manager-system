@@ -3,8 +3,8 @@
         <el-table
                 :data="data"
                 border
+                ref="table"
                 class="table"
-                ref="multipleTable"
                 header-cell-class-name="table-header"
                 @selection-change="change"
         >
@@ -79,6 +79,9 @@
             },
             changePage: function(current) {
                 this.$emit('changePage', current);
+            },
+            clearSelection: function() {
+                this.$refs.table.clearSelection();
             }
         }
     };
