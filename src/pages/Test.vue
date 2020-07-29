@@ -5,7 +5,7 @@
                 <el-breadcrumb-item>
                     <i class="el-icon-lx-cascades"></i> 用户管理
                 </el-breadcrumb-item>
-                <el-breadcrumb-item>用户列表</el-breadcrumb-item>
+                <el-breadcrumb-item>测试</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
@@ -25,38 +25,45 @@
                 <el-button type="primary" icon="el-icon-lx-add" @click="handleAdd">添加</el-button>
             </div>
             <xdd-table
-                :data="tableData"
-                :columns="columns"
-                :current="query.pageIndex"
-                :size="query.pageSize"
-                :total="pageTotal"
+                    :data="tableData"
+                    :columns="columns"
+                    :current="query.pageIndex"
+                    :size="query.pageSize"
+                    :total="pageTotal"
             />
         </div>
-
-        <xdd-form
-                :title="type === 1 ? '添加' : '编辑'"
-                :form="form"
-                :visible="visible"
-                :fields="fields"
-                @save="save" @close="close"
-        >
-            <el-form-item slot="address" label="地址">
-                <el-input v-model="form.address"></el-input>
-            </el-form-item>
-        </xdd-form>
+        <el-dialog :title="type === 1 ? '添加' : '编辑'" :visible.sync="visible" width="40%">
+            <el-form ref="form" :model="form" label-width="70px">
+                <el-form-item label="用户名">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="地址">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="水果">
+                    <el-checkbox-group v-model="form.fruit">
+                        <el-checkbox label="apple" name="fruit">苹果</el-checkbox>
+                        <el-checkbox label="grape" name="fruit">葡萄</el-checkbox>
+                        <el-checkbox label="orange" name="fruit">橙子</el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="visible = false">取 消</el-button>
+                <el-button type="primary" @click="save">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 
     import XddTable from '@/components/Table';
-    import XddForm from '@/components/Form';
     import { fetchData } from '@/api';
 
     export default {
         components: {
             XddTable,
-            XddForm,
         },
         data() {
             return {
@@ -117,136 +124,6 @@
                         onAction: this.handleDelete
                     }]
                 }],
-                fields: [{
-                    key: 'name',
-                    type: 'text',
-                    label: '用户名'
-                }, {
-                    key: 'address',
-                    slot: true
-                }, {
-                    key: 'phone',
-                    type: 'number',
-                    label: '手机号码'
-                }, {
-                    key: 'password',
-                    type: 'password',
-                    label: '密码'
-                }, {
-                    key: 'status',
-                    type: 'select',
-                    label: '状态',
-                    optionKey: 'key',
-                    optionText: 'text',
-                    options: [{
-                        key: 0,
-                        text: '全部'
-                    }, {
-                        key: 1,
-                        text: '正常'
-                    }, {
-                        key: 2,
-                        text: '禁用'
-                    }]
-                }, {
-                    key: 'date',
-                    type: 'date',
-                    dateType: 'date',
-                    dateFormat: 'yyyy-MM-dd',
-                    label: '日期',
-                }, {
-                    key: 'time',
-                    type: 'time',
-                    dateType: 'date',
-                    dateFormat: 'HH:mm:ss',
-                    label: '时间',
-                }, {
-                    key: 'city',
-                    type: 'cascader',
-                    label: '城市',
-                    options: [{
-                        value: 'guangdong',
-                        label: '广东省',
-                        children: [{
-                            value: 'guangzhou',
-                            label: '广州市',
-                            children: [{
-                                value: 'tianhe',
-                                label: '天河区'
-                            }, {
-                                value: 'haizhu',
-                                label: '海珠区'
-                            }]
-                        }, {
-                            value: 'dongguan',
-                            label: '东莞市',
-                            children: [{
-                                value: 'changan',
-                                label: '长安镇'
-                            }, {
-                                value: 'humen',
-                                label: '虎门镇'
-                            }]
-                        }]
-                    }, {
-                        value: 'hunan',
-                        label: '湖南省',
-                        children: [{
-                            value: 'changsha',
-                            label: '长沙市',
-                            children: [{
-                                value: 'yuelu',
-                                label: '岳麓区'
-                            }]
-                        }]
-                    }]
-                }, {
-                    key: 'switch',
-                    type: 'switch',
-                    label: '开关',
-                }, {
-                    key: 'fruit',
-                    type: 'checkbox',
-                    label: '水果',
-                    optionKey: 'key',
-                    optionText: 'text',
-                    options: [{
-                        key: 0,
-                        text: '香蕉'
-                    }, {
-                        key: 1,
-                        text: '苹果'
-                    }, {
-                        key: 2,
-                        text: '葡萄'
-                    }]
-                }, {
-                    key: 'education',
-                    type: 'radio',
-                    label: '学历',
-                    options: [{
-                        key: 0,
-                        text: '初中'
-                    }, {
-                        key: 1,
-                        text: '高中'
-                    }, {
-                        key: 2,
-                        text: '本科'
-                    }, {
-                        key: 3,
-                        text: '专科'
-                    }]
-                }, {
-                    key: 'content',
-                    type: 'textarea',
-                    label: '内容',
-                }, {
-                    key: 'thumb',
-                    type: 'upload',
-                    label: '缩略图',
-                    action: 'https://jsonplaceholder.typicode.com/posts/',
-                }],
                 multipleSelection: [],
                 delList: [],
                 visible: false,
@@ -256,6 +133,14 @@
                 id: -1,
                 type: null
             };
+        },
+        watch: {
+            form: function(val) {
+                console.log('form-------', val);
+            }
+        },
+        mounted() {
+            console.log('mounted-------', this.form);
         },
         created() {
             this.getData();
@@ -301,15 +186,12 @@
             },
             // 编辑操作
             handleAdd: function () {
-                this.form = {
-                    fruit: []
-                };
+                this.form = {form: []};
                 this.type = 1;
                 this.visible = true;
             },
             // 编辑操作
             handleEdit: function (row, index) {
-                row.fruit = Array.isArray(row.fruit) ? row.fruit : [];
                 this.idx = index;
                 this.form = row;
                 this.type = 2;
