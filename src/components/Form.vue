@@ -48,6 +48,7 @@
                     <el-upload
                             v-else-if="field.type === 'upload'"
                             :action="field.action"
+                            :headers="{'Access-Control-Allow-Origin': '*'}"
                             list-type="picture-card"
                             :multiple="false"
                             :on-preview="preview"
@@ -90,13 +91,6 @@
                 dialogVisible: false,
                 thumb: null,
             };
-        },
-        created() {
-            for (let i in this.fields) {
-                if (this.fields[i].type === 'checkbox' && !Array.isArray(this.form[this.fields[i].key])) {
-                    this.form[this.fields[i].key] = [];
-                }
-            }
         },
         methods: {
             preview: function(file) {

@@ -202,7 +202,6 @@
                     key: 'fruit',
                     type: 'checkbox',
                     label: '水果',
-                    slot: true,
                     optionKey: 'key',
                     optionText: 'text',
                     options: [{
@@ -246,9 +245,7 @@
                 delList: [],
                 visible: false,
                 pageTotal: 0,
-                form: {
-                    fruit: []
-                },
+                form: {},
                 idx: -1,
                 id: -1,
                 type: null
@@ -298,12 +295,15 @@
             },
             // 编辑操作
             handleAdd: function () {
-                this.form = {};
+                this.form = {
+                    fruit: []
+                };
                 this.type = 1;
                 this.visible = true;
             },
             // 编辑操作
             handleEdit: function (row, index) {
+                row.fruit = Array.isArray(row.fruit) ? row.fruit : [];
                 this.idx = index;
                 this.form = row;
                 this.type = 2;
