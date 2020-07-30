@@ -30,6 +30,11 @@ export default new Router({
                     meta: { title: '用户列表' }
                 },
                 {
+                    path: '/clipboard',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/Clipboard.vue'),
+                    meta: { title: '复制粘贴' }
+                },
+                {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '@/pages/Icon.vue'),
                     meta: { title: '自定义图标' }

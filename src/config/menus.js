@@ -11,6 +11,9 @@ const menus = [
         subs: [{
             index: 'user',
             title: '用户列表'
+        }, {
+            index: 'clipboard',
+            title: '复制粘贴'
         }]
     },
     {
