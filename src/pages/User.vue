@@ -40,7 +40,7 @@
                     @change="handleSelectionChange"
             >
                 <template #extra="{ row }">
-                    <span>测试</span>
+                    <span>{{ row.name }}</span>
                 </template>
             </xdd-table>
         </div>
@@ -90,8 +90,8 @@
                     align: 'center',
                 }, {
                     key: 'extra',
-                    title: '测试',
-                    width: 60,
+                    title: '自定义',
+                    width: 100,
                     slot: true,
                 }, {
                     key: 'name',
