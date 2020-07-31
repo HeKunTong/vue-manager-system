@@ -53,6 +53,20 @@
                 </el-card>
             </el-col>
         </el-row>
+        <el-row :gutter="20">
+            <el-col :span="24">
+                <el-card shadow="hover">
+                    <schart ref="line" class="schart" canvasId="pie" :options="options3"></schart>
+                </el-card>
+            </el-col>
+        </el-row>
+        <el-row :gutter="20">
+            <el-col :span="24">
+                <el-card shadow="hover">
+                    <schart ref="line" class="schart" canvasId="ring" :options="options4"></schart>
+                </el-card>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
@@ -62,36 +76,6 @@
         data() {
             return {
                 name: localStorage.getItem('ms_username'),
-                data: [
-                    {
-                        name: '2018/09/04',
-                        value: 1083
-                    },
-                    {
-                        name: '2018/09/05',
-                        value: 941
-                    },
-                    {
-                        name: '2018/09/06',
-                        value: 1139
-                    },
-                    {
-                        name: '2018/09/07',
-                        value: 816
-                    },
-                    {
-                        name: '2018/09/08',
-                        value: 327
-                    },
-                    {
-                        name: '2018/09/09',
-                        value: 228
-                    },
-                    {
-                        name: '2018/09/10',
-                        value: 1065
-                    }
-                ],
                 options: {
                     type: 'bar',
                     title: {
@@ -134,6 +118,36 @@
                             data: [74, 118, 200, 235, 90]
                         }
                     ]
+                },
+                options3: {
+                    type: 'pie',
+                    title: {
+                        text: '服装品类销售饼状图'
+                    },
+                    legend: {
+                        position: 'bottom',
+                    },
+                    bgColor: '#fbfbfb',
+                    labels: ['T恤', '牛仔裤', '连衣裙', '毛衣', '七分裤', '短裙', '羽绒服'],
+                    datasets: [{
+                        data: [334, 278, 190, 235, 260, 200, 141]
+                    }]
+                },
+                options4: {
+                    type: 'ring',
+                    title: {
+                        text: '环形三等分'
+                    },
+                    showValue: false,
+                    legend: {
+                        position: 'bottom',
+                        bottom: 40
+                    },
+                    bgColor: '#fbfbfb',
+                    labels: ['vue', 'react', 'angular'],
+                    datasets: [{
+                        data: [500, 500, 500]
+                    }]
                 }
             };
         },
@@ -145,39 +159,8 @@
                 return this.name === 'admin' ? '超级管理员' : '普通用户';
             }
         },
-        // created() {
-        //     this.handleListener();
-        //     this.changeDate();
-        // },
-        // activated() {
-        //     this.handleListener();
-        // },
-        // deactivated() {
-        //     window.removeEventListener('resize', this.renderChart);
-        //     bus.$off('collapse', this.handleBus);
-        // },
         methods: {
-            changeDate() {
-                const now = new Date().getTime();
-                this.data.forEach((item, index) => {
-                    const date = new Date(now - (6 - index) * 86400000);
-                    item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-                });
-            }
-            // handleListener() {
-            //     bus.$on('collapse', this.handleBus);
-            //     // 调用renderChart方法对图表进行重新渲染
-            //     window.addEventListener('resize', this.renderChart);
-            // },
-            // handleBus(msg) {
-            //     setTimeout(() => {
-            //         this.renderChart();
-            //     }, 200);
-            // },
-            // renderChart() {
-            //     this.$refs.bar.renderChart();
-            //     this.$refs.line.renderChart();
-            // }
+
         }
     };
 </script>
