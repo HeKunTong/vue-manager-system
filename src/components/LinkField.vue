@@ -1,5 +1,5 @@
 <template>
-    <a class="xdd-link" :target="target || '_self'" :href="getHref">{{ getTemplate }}</a>
+    <a class="xdd-link" :target="target" :href="getHref">{{ getTemplate }}</a>
 </template>
 
 <script>
@@ -8,7 +8,10 @@
         props: {
             name: String,
             row: Object,
-            target: String,
+            target: {
+                type: String,
+                default: '_self'
+            },
             href: Function,
             func: Function,
         },
