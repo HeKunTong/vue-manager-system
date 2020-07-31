@@ -17,8 +17,9 @@
                     :width="column.width"
                     :align="column.align"
             >
-                <template slot-scope="scope">
+                <template #default="scope">
                     <text-field v-if="!column.type || column.type === 'text'" :name="column.key" :func="column.template" :row="scope.row"/>
+                    <link-field v-if="column.type === 'link'" :name="column.key" :target="column.target" :href="column.href" :func="column.template" :row="scope.row"/>
                     <image-field v-else-if="column.type === 'image'" :name="column.key" :func="column.template" :row="scope.row"/>
                     <tag-field v-else-if="column.type === 'tag'" :name="column.key" :status="column.status" :func="column.template" :row="scope.row"/>
                     <action-field v-else-if="column.type === 'action'" :name="column.key" :index="scope.$index" :buttons="column.buttons" :func="column.template" :row="scope.row"/>
@@ -40,6 +41,7 @@
 
 <script>
     import TextField from '@/components/TextField';
+    import LinkField from '@/components/LinkField';
     import ImageField from '@/components/ImageField';
     import TagField from '@/components/TagField';
     import ActionField from '@/components/ActionField';
@@ -48,6 +50,7 @@
         name: 'xdd-table',
         components: {
             TextField,
+            LinkField,
             ImageField,
             TagField,
             ActionField,

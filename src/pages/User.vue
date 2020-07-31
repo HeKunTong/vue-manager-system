@@ -86,7 +86,12 @@
                     align: 'center',
                 }, {
                     key: 'name',
+                    type: 'link',
                     title: '用户名',
+                    href: function(data) {
+                        return 'http://www.baidu.com'
+                    },
+                    target: '_blank',
                 }, {
                     key: 'money',
                     title: '账户余额',
