@@ -38,7 +38,11 @@
                     :size="query.pageSize"
                     :total="pageTotal"
                     @change="handleSelectionChange"
-            />
+            >
+                <template #extra="{ row }">
+                    <span>测试</span>
+                </template>
+            </xdd-table>
         </div>
 
         <xdd-form
@@ -84,6 +88,11 @@
                     title: 'ID',
                     width: 55,
                     align: 'center',
+                }, {
+                    key: 'extra',
+                    title: '测试',
+                    width: 60,
+                    slot: true,
                 }, {
                     key: 'name',
                     type: 'link',
