@@ -14,6 +14,9 @@ const menus = [
         }, {
             index: 'clipboard',
             title: '复制粘贴'
+        }, {
+            index: 'animate',
+            title: '动画'
         }]
     },
     {
